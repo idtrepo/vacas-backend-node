@@ -1,0 +1,1 @@
+const a={VACAS:["fa-solid","fa-cow"],USUARIOS:["fa-solid","fa-user"],MAPAS:["fa-solid","fa-map"]},A={VACAS_DATA:"vacas-data",VACAS_LISTADO_MENU:"vacas-listado-menu"},s={VACAS_LISTADO:{nombre:"vacas-listado",icono:a.VACAS},VACAS_MAPAS:{nombre:"vacas-listado-mapas",icono:a.MAPAS}};export{a as I,s as V,A as a};
