@@ -6,7 +6,7 @@ const GatewayCollarSchema = z.object({
     idGateway: z.number().gt(0).nullish(),//preguntar por esta propiedad
 });
 
-export const GatewayCollarSchemaLeer = {
+export const gatewaysCollaresSchemaLeer = {
     id: true,
     idCollar: true,
     idGateway: true,
