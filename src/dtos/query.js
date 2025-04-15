@@ -5,17 +5,13 @@ export class QueryDTO {
     estatus,
     nombre,
     fecha,
-    mac,
-    clave,
+    
     correo,
     apellido,
 
     sucursal,
-    valor,
-    sensor,
-    modulo,
+    
     cliente,
-    area,
     perfil,
     operacion,
     categoria,
@@ -24,11 +20,7 @@ export class QueryDTO {
     estatus = !VALORES_BOOLEANOS_FALSOS.includes(estatus);
 
     sucursal &&= parseInt(sucursal);
-    valor &&= parseInt(valor);
-    sensor &&= parseInt(sensor);
-    modulo &&= parseInt(modulo);
     cliente &&= parseInt(cliente);
-    area &&= parseInt(area);
     perfil &&= parseInt(perfil);
     operacion &&= parseInt(operacion);
     categoria &&= parseInt(categoria);
@@ -38,17 +30,14 @@ export class QueryDTO {
       estatus,
       nombre,
       fecha,
-      mac,
-      clave,
+
+      
       correo,
       apellido,
 
       sucursal,
-      valor,
-      sensor,
-      modulo,
+      
       cliente,
-      area,
       perfil,
       operacion,
       categoria,

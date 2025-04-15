@@ -6,7 +6,6 @@ export class UsuariosDTO {
     apellido,
     idPerfil,
     idCliente,
-    idArea,
     idSucursal,
   }) => {
     nombre = nombre?.toString();
@@ -15,7 +14,6 @@ export class UsuariosDTO {
     apellido = apellido?.toString();
     idCliente &&= parseInt(idCliente);
     idPerfil &&= parseInt(idPerfil);
-    idArea &&= parseInt(idArea);
     idSucursal &&= parseInt(idSucursal);
     return {
       correo,
@@ -24,7 +22,6 @@ export class UsuariosDTO {
       apellido,
       idPerfil,
       idCliente,
-      idArea,
       idSucursal,
     };
   };
