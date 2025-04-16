@@ -21,6 +21,10 @@ export class QueryMiddleware {
       operacion,
       categoria,
       accion,
+
+      collar,
+      vaca,
+      gateway
     } = QueryDTO.parse(req.query);
     const where = {};
 
@@ -28,7 +32,6 @@ export class QueryMiddleware {
 
     if (nombre !== undefined) where["nombre"] = nombre && { contains: nombre };
     if (correo !== undefined) where["correo"] = correo && { contains: correo };
-    if (mac !== undefined) where["mac"] = mac && { contains: mac };
     if (apellido !== undefined)
       where["apellido"] = apellido && { contains: apellido };
     if (sucursal !== undefined)
@@ -43,6 +46,11 @@ export class QueryMiddleware {
       where["cliente"] = cliente && { id: { equals: cliente } };
     if (perfil !== undefined)
       where["perfil"] = perfil && { id: { equals: perfil } };
+    if (collar !== undefined)
+      where["collar"] = collar && { id: { equals: collar } };
+    if (vaca !== undefined) where["vaca"] = vaca && { id: { equals: vaca } };
+    if (gateway !== undefined) 
+      where["gateway"] = gateway && { id: { equals: gateway } };
     if (fecha) {
       const fechaInferior = new Date(fecha);
       const fechaSuperior = new Date(fecha);
