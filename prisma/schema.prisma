@@ -93,6 +93,8 @@ model Cliente{
   usuarios Usuario[]
   sucursales Sucursal[]
   vacas Vaca[]
+  gateways Gateway[]
+  geoCercas GeoCerca[]
 }
 
 model Sucursal{
@@ -107,6 +109,8 @@ model Sucursal{
 
   usuarios Usuario[]
   vacas    Vaca[]
+  gateways Gateway[]
+  geoCercas GeoCerca[]
 }
 
 model Vaca{
@@ -147,6 +151,10 @@ model Gateway{
   creado DateTime @default(now())
   editado DateTime @updatedAt
 
+  cliente Cliente @relation(fields: [idCliente], references: [id])
+  idCliente Int
+  sucursal Sucursal @relation(fields: [idSucursal], references: [id])
+  idSucursal Int
   collares GatewayCollar[]
   datos Dato[]
   infoStatus InfoStatus[]
@@ -167,7 +175,7 @@ model GatewayCollar{
 
 model Dato{
     id Int @id @default(autoincrement())
-    ns Int
+    ns String @unique
     latitud Float
     longitud Float
     pasos Int
@@ -196,3 +204,17 @@ model InfoStatus{
     idCollar Int
 }
 
+model GeoCerca{
+  id Int @id @default(autoincrement())
+  estatus Boolean @default(true)
+  creado DateTime @default(now())
+  editado DateTime @updatedAt
+  latitud Float
+  longitud Float
+
+  cliente Cliente @relation(fields: [idCliente], references: [id])
+  idCliente Int
+
+  sucursal Sucursal @relation(fields: [idSucursal], references: [id])
+  idSucursal Int
+  }
