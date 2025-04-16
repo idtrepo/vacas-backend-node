@@ -3,7 +3,7 @@ import z from 'zod';
 const VacasSchema = z.object({
     id: z.number().gt(0).nullish(),
     nombre: z.string().min(1).max(50),
-    fechaNacimiento: z.date(),
+    fechaNacimiento: z.string(),
     peso: z.number().gt(0),
     idCliente: z.number().gt(0).nullish(),
     idSucursal: z.number().gt(0).nullish(),
@@ -15,7 +15,7 @@ export const vacasSchemaLeer = {
     nombre: true,
     fechaNacimiento: true,
     peso: true,
-    collar: { select: { id: true, nombre: true } },
+    collar: { select: { id: true, ns: true } },
     cliente: { select: { id: true, nombre: true } },
     sucursal: { select: { id: true, nombre: true } },
 };
