@@ -1,5 +1,5 @@
-import { evaluarInfoStatus, evaluarInfoStatusParcial } from "../schemas/infoStatus";
-import { InfoStatusDTO } from "../dtos/infoStatus";
+import { evaluarInfoStatus, evaluarInfoStatusParcial } from "../schemas/infoStatus.js";
+import { InfoStatusDTO } from "../dtos/infoStatus.js";
 import { MENSAJE_ERROR, MENSAJE_EXITO } from "../utils/mensajes.js";
 
 export class InfoStatusController{

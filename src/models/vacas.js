@@ -1,7 +1,7 @@
 import { prisma } from '../../config/db.js'
 import { vacasSchemaLeer } from '../schemas/vacas.js';
 
-export class VacasModel {
+export class VacaModel {
     static async obtenerElementos({ skip, take, where }) {
         try {
             const numElementos = await prisma.vacas.count({ where });

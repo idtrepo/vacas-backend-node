@@ -1,4 +1,4 @@
-import { evaluarGateway, evaluarGatewayParcial } from "../schemas/gateways";
+import { evaluarGateway, evaluarGatewayParcial } from "../schemas/gateways.js";
 import { GatewaysDTO } from "../dtos/gateways.js";
 import { MENSAJE_ERROR, MENSAJE_EXITO } from "../utils/mensajes.js";
 

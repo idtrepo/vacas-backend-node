@@ -1,11 +1,11 @@
 import { prisma } from '../../config/db.js'
 import { datosSchemaLeer } from '../schemas/datos.js';
 
-export class DatosModel {
+export class DatoModel {
     static async obtenerElementos({ skip, take, where }) {
         try {
-            const numElementos = await prisma.datos.count({ where });
-            const elementos = await prisma.datos.findMany({
+            const numElementos = await prisma.dato.count({ where });
+            const elementos = await prisma.dato.findMany({
                 skip, take, where, orderBy: [{ creado: 'desc' }], select: datosSchemaLeer
             });
             return { numElementos, elementos };
@@ -16,7 +16,7 @@ export class DatosModel {
 
     static async crearElemento({ data }) {
         try {
-            const elemento = await prisma.datos.create({ data, select: datosSchemaLeer });
+            const elemento = await prisma.dato.create({ data, select: datosSchemaLeer });
             return elemento;
         } catch (err) {
             throw err;
@@ -25,7 +25,7 @@ export class DatosModel {
 
     static async obtenerElemento({ id }) {
         try {
-            const elemento = await prisma.datos.findFirstOrThrow({ where:{id}, select: datosSchemaLeer });
+            const elemento = await prisma.dato.findFirstOrThrow({ where:{id}, select: datosSchemaLeer });
             return elemento;
         } catch (err) {
             throw err;
@@ -34,7 +34,7 @@ export class DatosModel {
 
     static async editarElemento({ id, data }) {
         try {
-            const elemento = await prisma.datos.update({
+            const elemento = await prisma.dato.update({
                 where:{id},
                 data,
                 select: datosSchemaLeer

@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
 
 export const hashearPassword = async ({ password, salt = 10 } = {}) => {

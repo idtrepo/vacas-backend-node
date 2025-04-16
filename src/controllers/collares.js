@@ -1,5 +1,5 @@
-import { evaluarCollar, evaluarCollarParcial } from "../schemas/collares";
-import { CollaresDTO } from "../dtos/collares";
+import { evaluarCollar, evaluarCollarParcial } from "../schemas/collares.js";
+import { CollaresDTO } from "../dtos/collares.js";
 import { MENSAJE_ERROR, MENSAJE_EXITO } from "../utils/mensajes.js";
 
 export class CollaresController {

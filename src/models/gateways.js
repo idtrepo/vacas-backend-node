@@ -1,12 +1,12 @@
 import { prisma } from '../../config/db.js';
-import { gatewaysSchemaLeer } from '../schemas/gateways.js';
+import { gatewaySchemaLeer } from '../schemas/gateways.js';
 
-export class GatewaysModel {
+export class GatewayModel {
     static async obtenerElementos({ skip, take, where }) {
         try {
             const numElementos = await prisma.gateways.count({ where });
             const elementos = await prisma.gateways.findMany({
-                skip, take, where, orderBy: [{ creado: 'desc' }], select: gatewaysSchemaLeer
+                skip, take, where, orderBy: [{ creado: 'desc' }], select: gatewaySchemaLeer
             });
             return { numElementos, elementos };
         } catch (err) {
@@ -16,7 +16,7 @@ export class GatewaysModel {
 
     static async crearElemento({ data }) {
         try {
-            const elemento = await prisma.gateways.create({ data, select: gatewaysSchemaLeer });
+            const elemento = await prisma.gateways.create({ data, select: gatewaySchemaLeer });
             return elemento;
         } catch (err) {
             throw err;
@@ -25,7 +25,7 @@ export class GatewaysModel {
 
     static async obtenerElemento({ id }) {
         try {
-            const elemento = await prisma.gateways.findFirstOrThrow({ where:{id}, select: gatewaysSchemaLeer });
+            const elemento = await prisma.gateways.findFirstOrThrow({ where:{id}, select: gatewaySchemaLeer });
             return elemento;
         } catch (err) {
             throw err;
@@ -37,7 +37,7 @@ export class GatewaysModel {
             const elemento = await prisma.gateways.update({
                 where:{id},
                 data,
-                select: gatewaysSchemaLeer
+                select: gatewaySchemaLeer
             })
 
             return elemento;

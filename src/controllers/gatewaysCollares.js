@@ -1,5 +1,5 @@
-import { evaluarGatewayCollar, evaluarGatewayCollarParcial } from "../schemas/gatewaysCollares";
-import { GatewaysCollaresDTO } from "../dtos/gatewaysCollares";
+import { evaluarGatewayCollar, evaluarGatewayCollarParcial } from "../schemas/gatewaysCollares.js";
+import { GatewaysCollaresDTO } from "../dtos/gatewaysCollares.js";
 import { MENSAJE_ERROR, MENSAJE_EXITO } from "../utils/mensajes.js";
 
 export class GatewaysCollaresController{
