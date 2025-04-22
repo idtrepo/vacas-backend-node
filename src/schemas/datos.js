@@ -13,6 +13,7 @@ const DatoSchema = z.object({
 
 export const datosSchemaLeer = {
     id: true,
+    ns:true,
     idGateway: true,
     latitud: true,
     longitud: true,

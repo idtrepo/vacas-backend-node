@@ -15,6 +15,7 @@ import {crearRouterGatewaysCollares} from "./gatewaysCollares.js";
 import { crearRouterInfoStatus } from './infoStatus.js';
 import { crearRouterVacas } from './vacas.js';
 import { crearRouterGeoCercas } from './geoCercas.js';
+import { crearRouterUbicaciones } from './ubicaciones.js';
 
 import { AccionModel } from "../models/acciones.js";
 import { CategoriaModel } from "../models/categorias.js";
@@ -52,6 +53,7 @@ export class AppRouter{
         router.use('/infoStatus', crearRouterInfoStatus({ model: InfoStatusModel }));
         router.use('/vacas', crearRouterVacas({ model: VacaModel }));
         router.use('/geoCercas', crearRouterGeoCercas({ model: GeoCercaModel }));
+        router.use('/ubicaciones', crearRouterUbicaciones({ model: VacaModel }));
 
         return router;
     }

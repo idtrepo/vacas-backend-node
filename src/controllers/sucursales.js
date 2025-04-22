@@ -69,7 +69,6 @@ export class SucursalesController {
       });
       res.json({ mensaje: MENSAJE_EXITO.EDICION, data: sucursal });
     } catch (err) {
-      console.log(err)
       res.status(400).json({ error: MENSAJE_ERROR.EDICION });
     }
   };

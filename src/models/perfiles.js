@@ -21,7 +21,6 @@ export class PerfilModel {
             });
             return elemento;
         } catch (err) {
-            console.log(err);
             throw err;
         }
     }

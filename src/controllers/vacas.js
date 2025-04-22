@@ -72,4 +72,55 @@ export class VacasController{
             res.status(404).json({ error: MENSAJE_ERROR.EDICION });
         }
     };
+
+    obtenerUbicaciones = async (req, res) =>{
+        try {
+            const { numElementos, elementos: vacas } = await this.model.obtenerUbicaciones(req);
+            const data = vacas.map(vaca =>{
+                const nsCollar = vaca.collar.ns;
+
+                const datos = vaca.collar?.gateways[0].gateway.datos.filter(d => d.ns === nsCollar);
+                const dato = datos?.[0] || null;
+
+                return{
+                    id: vaca.id,
+                    nombre: vaca.nombre,
+                    idCollar: vaca.collar.id,
+                    idSucursal: vaca.sucursal.id,
+                    coordenadas:[ dato?.latitud, dato?.longitud,],
+                }
+            })
+            res.json({
+                mensaje: MENSAJE_EXITO.LISTADO,
+                data,
+                resultados: numElementos,
+            });
+        } catch (err) {
+            res.status(404).json({ error: MENSAJE_ERROR.LISTADO });
+        }
+    };
+
+    obtenerUbicacion = async (req, res) =>{
+        const { id } = req.params;
+        try {
+            const vaca = await this.model.obtenerUbicacion({ id: parseInt(id) });
+            const nsCollar = vaca.collar.ns;
+
+            const datos = vaca.collar?.gateways[0].gateway.datos.filter(d => d.ns === nsCollar);
+            const dato = datos?.[0] || null;
+
+            res.json({
+                mensaje: MENSAJE_EXITO.LISTADO_UNO,
+                data:{
+                    id: vaca.id,
+                    nombre: vaca.nombre,
+                    idCollar: vaca.collar.id,
+                    idSucursal: vaca.sucursal.id,
+                    coordenadas:[ dato?.latitud, dato?.longitud,],
+                }
+            });
+        } catch (err) {
+            res.status(404).json({ error: MENSAJE_ERROR.LISTADO_UNO });
+        }
+    }
 }

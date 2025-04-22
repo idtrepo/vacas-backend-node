@@ -16,7 +16,40 @@ export const vacasSchemaLeer = {
     fechaNacimiento: true,
     peso: true,
     collar: { select: { id: true, ns: true } },
-    cliente: { select: { id: true, nombre: true } },
+    sucursal: { select: { id: true, nombre: true } },
+};
+
+export const vacasUbicacionSchemaLeer = {
+    id: true,
+    nombre: true,
+    peso:true,
+    collar: { select: { id: true, ns: true,
+        gateways:{ orderBy: {
+            creado: 'desc' ,
+        },
+        where:{ estatus: true},
+        take: 1,
+        select:{
+            gateway:{
+                select:{
+                    datos:{
+                        orderBy:{
+                            creado:'desc'
+                        },
+                        where:{
+                            ns:{ equals: undefined },
+                        },
+                        select:{
+                            ns:true,
+                            latitud:true,
+                            longitud:true
+                        }
+                    }
+                }
+            }
+        }
+    }
+     } },
     sucursal: { select: { id: true, nombre: true } },
 };
 

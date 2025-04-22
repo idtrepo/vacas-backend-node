@@ -10,7 +10,6 @@ export class PermisoModel {
             });
             return { numElementos, elementos };
         } catch (err) {
-            console.log(err);
             throw err;
         }
     }

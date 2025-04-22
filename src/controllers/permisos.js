@@ -48,7 +48,6 @@ export class PermisosController{
           const permiso = await this.model.obtenerElemento({ id: parseInt(id) });
           res.json({ mensaje: MENSAJE_EXITO.LISTADO_UNO, data: permiso });
         } catch (err) {
-          console.log(err)
           res.status(404).json({ error: MENSAJE_ERROR.LISTADO_UNO });
         }
       };

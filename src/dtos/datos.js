@@ -1,11 +1,11 @@
 export class DatosDTO{
-    static parse = ({ns, latitud,longitud, pasos, temperaturaAmb, temperaturaCor, idGateway}) => ({
+    static parse = ({ns, lat,lon, pasos, temperatura, ambiente, idGateway}) => ({
         ns: ns?.toString(),
-        latitud: Number.isNaN(parseFloat(latitud)) ? null : parseFloat(latitud),
-        longitud: Number.isNaN(parseFloat(longitud)) ? null : parseFloat(longitud),
+        latitud: parseFloat(lat),
+        longitud: parseFloat(lon),
         pasos: Number.isNaN(parseInt(pasos)) ? null : parseInt(pasos),
-        temperaturaAmb: Number.isNaN(parseFloat(temperaturaAmb)) ? null : parseFloat(temperaturaAmb),
-        temperaturaCor: Number.isNaN(parseFloat(temperaturaCor)) ? null : parseFloat(temperaturaCor),
-        idGateway: Number.isNaN(parseInt(idGateway)) ? null : parseInt(idGateway)
+        temperaturaAmb: Number.isNaN(parseFloat(ambiente)) ? null : parseFloat(ambiente),
+        temperaturaCor: Number.isNaN(parseFloat(temperatura)) ? null : parseFloat(temperatura),
+        idGateway: Number.isNaN(parseInt(idGateway)) ? null : parseInt(idGateway),
     })
 }

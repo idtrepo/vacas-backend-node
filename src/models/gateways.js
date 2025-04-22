@@ -45,4 +45,13 @@ export class GatewayModel {
             throw err;
         }
     }
+
+    static async obtenerIdGateway({identificador}){
+        try {
+            const elemento = await prisma.gateway.findFirstOrThrow({ where:{ns:identificador}, select: gatewaySchemaLeer });
+            return elemento;
+        } catch (err) {
+            throw err;
+        }
+    }
 }
