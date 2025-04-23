@@ -175,7 +175,7 @@ model GatewayCollar{
 
 model Dato{
     id Int @id @default(autoincrement())
-    ns String @unique
+    ns String 
     latitud Float
     longitud Float
     pasos Int
@@ -196,6 +196,7 @@ model InfoStatus{
     editado DateTime @updatedAt
     rssi Int
     snr Int
+    bateria Int
     
     gateway Gateway @relation(fields: [idGateway], references: [id])
     idGateway Int

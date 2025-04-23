@@ -1,0 +1,29 @@
+export const collares = [
+    {
+        ns:'collar1',
+    },
+    {
+        ns:'collar2',
+    },
+    {
+        ns:'collar3',
+    },
+    {
+        ns:'collar4',
+    },
+    {
+        ns:'collar5',
+    },
+    {
+        ns:'collar6',
+    },
+    {
+        ns:'collar7',
+    },
+    {
+        ns:'collar8',
+    },
+    {
+        ns:'collar9',
+    },
+]

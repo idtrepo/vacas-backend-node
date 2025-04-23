@@ -45,4 +45,13 @@ export class CollarModel {
             throw err;
         }
     }
+
+    static async obtenerIdCollar({identificador}){
+        try {
+            const elemento = await prisma.collar.findFirstOrThrow({ where:{ns:identificador}, select: collaresSchemaLeer });
+            return elemento;
+        } catch (err) {
+            throw err;
+        }
+    }
 }

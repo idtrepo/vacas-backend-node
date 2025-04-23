@@ -1,22 +1,19 @@
+import { evaluarGeoCerca, evaluarGeoCercaParcial } from "../schemas/geoCercas.js";
+import { GeoCercaDTO } from "../dtos/geoCercas.js";
 import { MENSAJE_ERROR, MENSAJE_EXITO } from "../utils/mensajes.js";
-import {
-  evaluarSucursal,
-  evaluarSucursalParcial,
-} from "../schemas/sucursales.js";
-import { SucursalesDTO } from "../dtos/sucursales.js";
 
-export class SucursalesController {
+export class GeoCercaController {
   constructor({ model }) {
     this.model = model;
   }
 
   obtenerElementos = async (req, res) => {
     try {
-      const { numElementos, elementos: sucursales } =
+      const { numElementos, elementos: geoCercas } =
         await this.model.obtenerElementos(req);
       res.json({
         mensaje: MENSAJE_EXITO.LISTADO,
-        data: sucursales,
+        data: geoCercas,
         resultados: numElementos,
       });
     } catch (err) {
@@ -25,19 +22,19 @@ export class SucursalesController {
   };
 
   crearElemento = async (req, res) => {
-    const { error, data } = await evaluarSucursal(req.body);
+    const { error, data } = await evaluarGeoCerca(req.body);
 
     if (error) {
       return res.status(400).json({ error: MENSAJE_ERROR.VALIDACION_DATOS });
     }
 
     try {
-      const sucursal = await this.model.crearElemento({
-        data: SucursalesDTO.parse(data),
+      const geoCerca = await this.model.crearElemento({
+        data: GeoCercaDTO.parse(data),
       });
       res.status(201).json({
         mensaje: MENSAJE_EXITO.CREACION,
-        data: sucursal,
+        data: geoCerca,
       });
     } catch (err) {
       res.status(400).json({ error: MENSAJE_ERROR.CREACION });
@@ -48,8 +45,8 @@ export class SucursalesController {
     const { id } = req.params;
 
     try {
-      const sucursal = await this.model.obtenerElemento({ id: parseInt(id) });
-      res.json({ mensaje: MENSAJE_EXITO.LISTADO_UNO, data: sucursal });
+      const geoCerca = await this.model.obtenerElemento({ id: parseInt(id) });
+      res.json({ mensaje: MENSAJE_EXITO.LISTADO_UNO, data: geoCerca });
     } catch (err) {
       res.status(404).json({ error: MENSAJE_ERROR.LISTADO_UNO });
     }
@@ -57,19 +54,22 @@ export class SucursalesController {
 
   editarElemento = async (req, res) => {
     const { id } = req.params;
-    const { error, data } = await evaluarSucursalParcial(req.body);
+    const { error, data } = await evaluarGeoCercaParcial(req.body);
 
     if (error)
       return res.status(400).json({ error: MENSAJE_ERROR.VALIDACION_DATOS });
 
     try {
-      const sucursal = await this.model.editarElemento({
+      const geoCerca = await this.model.editarElemento({
         id: parseInt(id),
         data,
       });
-      res.json({ mensaje: MENSAJE_EXITO.EDICION, data: sucursal });
+      res.json({
+        mensaje: MENSAJE_EXITO.ACTUALIZACION,
+        data: geoCerca,
+      });
     } catch (err) {
-      res.status(400).json({ error: MENSAJE_ERROR.EDICION });
+      res.status(404).json({ error: MENSAJE_ERROR.ACTUALIZACION });
     }
   };
 }
