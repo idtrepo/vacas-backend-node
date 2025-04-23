@@ -1,0 +1,35 @@
+export const categorias = [
+    {
+        nombre:"perfiles",
+    },
+    {
+        nombre:"usuarios",
+    },
+    {
+        nombre:"operaciones",
+    },
+    {
+        nombre:"categorias",
+    },
+    {
+        nombre:"acciones",
+    },
+    {
+        nombre:"permisos",
+    },
+    {
+        nombre:"clientes",
+    },
+    {
+        nombre:"sucursales",
+    },
+    {
+        nombre:"vacas",
+    },
+    {
+        nombre:"ubicaciones",
+    },
+    {
+        nombre:"datos"
+    }
+]
