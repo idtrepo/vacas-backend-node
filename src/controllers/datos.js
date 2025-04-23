@@ -1,5 +1,5 @@
-import { evaluarDato, evaluarDatoParcial } from "../schemas/datos";
-import { DatosDTO } from "../dtos/datos";
+import { evaluarDato, evaluarDatoParcial } from "../schemas/datos.js";
+import { DatosDTO } from "../dtos/datos.js";
 import { MENSAJE_ERROR, MENSAJE_EXITO } from "../utils/mensajes.js";
 
 export class DatosController {

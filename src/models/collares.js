@@ -1,7 +1,7 @@
 import { prisma } from '../../config/db.js'
 import { collaresSchemaLeer } from '../schemas/collares.js';
 
-export class CollaresModel {
+export class CollarModel {
     static async obtenerElementos({ skip, take, where }) {
         try {
             const numElementos = await prisma.collares.count({ where });

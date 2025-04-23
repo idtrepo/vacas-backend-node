@@ -1,5 +1,5 @@
-import { evaluarVaca, evaluarVacaParcial } from "../schemas/vacas";
-import { VacasDTO } from "../dtos/vacas";
+import { evaluarVaca, evaluarVacaParcial } from "../schemas/vacas.js";
+import { VacasDTO } from "../dtos/vacas.js";
 import { MENSAJE_ERROR, MENSAJE_EXITO } from "../utils/mensajes.js";
 
 
