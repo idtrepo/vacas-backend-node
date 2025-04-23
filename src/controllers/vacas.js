@@ -85,6 +85,7 @@ export class VacasController{
                 return{
                     id: vaca.id,
                     nombre: vaca.nombre,
+                    peso: vaca.peso,
                     idCollar: vaca.collar.id,
                     idSucursal: vaca.sucursal.id,
                     coordenadas:[ dato?.latitud, dato?.longitud,],
@@ -114,6 +115,7 @@ export class VacasController{
                 data:{
                     id: vaca.id,
                     nombre: vaca.nombre,
+                    peso: vaca.peso,
                     idCollar: vaca.collar.id,
                     idSucursal: vaca.sucursal.id,
                     coordenadas:[ dato?.latitud, dato?.longitud,],

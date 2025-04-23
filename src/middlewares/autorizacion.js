@@ -16,6 +16,7 @@ export class AutorizacionMiddleware {
     if (endpoint === RUTA_AUTENTICACION) return next();
 
     const permisos = usuario.perfil.acciones;
+    console.log(permisos[endpoint])
 
     if (endpoint in permisos && permisos[endpoint].includes(ACCIONES[method]))
       return next();

@@ -14,8 +14,8 @@ const app = express();
 app.use(CORSMiddleware.execute())
 app.use(express.json());
 app.use(morgan('dev'));
-//app.use(AutenticacionMiddleware.execute);
-//app.use(AutorizacionMiddleware.execute);
+app.use(AutenticacionMiddleware.execute);
+app.use(AutorizacionMiddleware.execute);
  app.use(QueryMiddleware.execute);
 app.use(PaginacionMiddleware.execute);
 

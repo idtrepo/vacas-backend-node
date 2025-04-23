@@ -1,5 +1,8 @@
 export class SettingsDTO {
-  static parse = ({ PORT }) => ({
+  static parse = ({ PORT, TOKEN_ACCESS_TIME, TOKEN_REFRESH_TIME, TOKEN_SECRET_KEY }) => ({
     PORT: parseInt(PORT),
+    TOKEN_ACCESS_TIME: parseInt(TOKEN_ACCESS_TIME),
+    TOKEN_REFRESH_TIME: parseInt(TOKEN_REFRESH_TIME),
+    TOKEN_SECRET_KEY
   });
 }

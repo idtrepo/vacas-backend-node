@@ -5,7 +5,8 @@ const InfoStatusSchema = z.object({
     idCollar: z.number().gt(0).nullish(),
     idGateway: z.number().gt(0).nullish(),
     rssi: z.number(),
-    snr: z.number()
+    snr: z.number(),
+    bateria: z.number().nullish(),
 });
 
 export const infoStatusSchemaLeer = {
@@ -13,7 +14,8 @@ export const infoStatusSchemaLeer = {
     idCollar: true,
     idGateway: true,
     rssi: true,
-    snr: true
+    snr: true,
+    bateria: true,
 };
 
 export const evaluarInfoStatus = async (data) => {
