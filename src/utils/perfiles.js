@@ -1,0 +1,6 @@
+export const PERFILES = {
+    SUPERUSUARIO: 1,
+    ADMINISTRADOR: 2,
+    SUPERVISOR: 3,
+    OPERADOR: 4
+}

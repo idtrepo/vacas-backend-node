@@ -1,6 +1,6 @@
 import app from "./app.js";
-import settings from "./settings/index.js";
+import { PORT } from "../config/settings.js";
 
-app.listen(settings.PORT, () => {
-  console.log(`Servidor escuchando en: http://localhost:${settings.PORT}`);
+app.listen(PORT, () => {
+  console.log(`Servidor escuchando en: http://localhost:${PORT}`);
 });

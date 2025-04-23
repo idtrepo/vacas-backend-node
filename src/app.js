@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import { AppRouter } from "./routes/index.js";
 
 const app = express();
 
@@ -10,10 +11,7 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(express.static("public"));
 
-app.get("*", (req, res) => {
-  const indexPath = join(import.meta.dirname, "..", "/public", "index.html");
+app.use("/api", AppRouter.routes);
 
-  res.sendFile(indexPath);
-});
 
 export default app;
