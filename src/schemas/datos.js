@@ -3,11 +3,12 @@ import z from 'zod'
 const DatoSchema = z.object({
     id: z.number().gt(0).nullish(),
     idGateway: z.number().gt(0).nullish(),
+    ns: z.string(),
     latitud: z.number(),
     longitud: z.number(),
     pasos: z.number(),
-    temperaturaAmbiente: z.number(),
-    temperaturaCorporal: z.number(),
+    temperaturaAmb: z.number(),
+    temperaturaCor: z.number(),
 });
 
 export const datosSchemaLeer = {
@@ -16,8 +17,8 @@ export const datosSchemaLeer = {
     latitud: true,
     longitud: true,
     pasos: true,
-    temperaturaAmbiente: true,
-    temperaturaCorporal: true
+    temperaturaAmb: true,
+    temperaturaCor: true
 };
 
 export const evaluarDato = async (data) => {

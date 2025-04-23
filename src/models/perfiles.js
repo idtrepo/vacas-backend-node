@@ -36,8 +36,13 @@ export class PerfilModel {
     static async editarElemento({ id, data }) {
         try {
             const {acciones} = data;
-
-            const elemento = await prisma.$transaction([
+            !acciones ? await prisma.perfil.update({
+                where:{id},
+                data:{
+                    nombre:data.nombre,
+                },
+                select: perfilSchemaLeer
+            }) :  await prisma.$transaction([
                 prisma.perfil.update({
                     where:{id},
                     data:{
@@ -53,8 +58,14 @@ export class PerfilModel {
                             },
                             create: { idPerfil: id, idAccion: accion.idAccion }
                         })
-                    )
+                    ),
             ])
+
+            const elemento = await prisma.perfil.findUniqueOrThrow({
+                where:{id},
+                select: perfilSchemaLeer
+            });
+     
             return elemento;
         } catch (err) {
             throw err;

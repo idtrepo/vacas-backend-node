@@ -10,12 +10,15 @@ export class QueryDTO {
     apellido,
 
     sucursal,
-    
     cliente,
     perfil,
     operacion,
     categoria,
     accion,
+
+    collar,
+    vaca,
+    gateway
   }) => {
     estatus = !VALORES_BOOLEANOS_FALSOS.includes(estatus);
 
@@ -25,23 +28,27 @@ export class QueryDTO {
     operacion &&= parseInt(operacion);
     categoria &&= parseInt(categoria);
     accion &&= parseInt(accion);
+    collar &&= parseInt(collar);
+    vaca &&= parseInt(vaca);
+    gateway &&= parseInt(gateway);
 
     return {
       estatus,
       nombre,
       fecha,
-
-      
       correo,
       apellido,
 
       sucursal,
-      
       cliente,
       perfil,
       operacion,
       categoria,
       accion,
+
+      collar,
+      vaca,
+      gateway,
     };
   };
 }

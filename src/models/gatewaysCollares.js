@@ -4,8 +4,8 @@ import { gatewaysCollaresSchemaLeer } from '../schemas/gatewaysCollares.js';
 export class GatewaysCollaresModel {
     static async obtenerElementos({ skip, take, where }) {
         try {
-            const numElementos = await prisma.gatewaysCollares.count({ where });
-            const elementos = await prisma.gatewaysCollares.findMany({
+            const numElementos = await prisma.gatewayCollar.count({ where });
+            const elementos = await prisma.gatewayCollar.findMany({
                 skip, take, where, orderBy: [{ creado: 'desc' }], select: gatewaysCollaresSchemaLeer
             });
             return { numElementos, elementos };
@@ -16,7 +16,7 @@ export class GatewaysCollaresModel {
 
     static async crearElemento({ data }) {
         try {
-            const elemento = await prisma.gatewaysCollares.create({ data, select: gatewaysCollaresSchemaLeer });
+            const elemento = await prisma.gatewayCollar.create({ data, select: gatewaysCollaresSchemaLeer });
             return elemento;
         } catch (err) {
             throw err;
@@ -25,7 +25,7 @@ export class GatewaysCollaresModel {
 
     static async obtenerElemento({ id }) {
         try {
-            const elemento = await prisma.gatewaysCollares.findFirstOrThrow({ where:{id}, select: gatewaysCollaresSchemaLeer });
+            const elemento = await prisma.gatewayCollar.findFirstOrThrow({ where:{id}, select: gatewaysCollaresSchemaLeer });
             return elemento;
         } catch (err) {
             throw err;
@@ -34,7 +34,7 @@ export class GatewaysCollaresModel {
 
     static async editarElemento({ id, data }) {
         try {
-            const elemento = await prisma.gatewaysCollares.update({
+            const elemento = await prisma.gatewayCollar.update({
                 where:{id},
                 data,
                 select: gatewaysCollaresSchemaLeer

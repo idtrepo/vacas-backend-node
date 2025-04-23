@@ -4,8 +4,8 @@ import { vacasSchemaLeer } from '../schemas/vacas.js';
 export class VacaModel {
     static async obtenerElementos({ skip, take, where }) {
         try {
-            const numElementos = await prisma.vacas.count({ where });
-            const elementos = await prisma.vacas.findMany({
+            const numElementos = await prisma.vaca.count({ where });
+            const elementos = await prisma.vaca.findMany({
                 skip, take, where, orderBy: [{ creado: 'desc' }], select: vacasSchemaLeer
             });
             return { numElementos, elementos };
@@ -16,7 +16,7 @@ export class VacaModel {
 
     static async crearElemento({ data }) {
         try {
-            const elemento = await prisma.vacas.create({ data, select: vacasSchemaLeer });
+            const elemento = await prisma.vaca.create({ data, select: vacasSchemaLeer });
             return elemento;
         } catch (err) {
             throw err;
@@ -25,7 +25,7 @@ export class VacaModel {
 
     static async obtenerElemento({ id }) {
         try {
-            const elemento = await prisma.vacas.findFirstOrThrow({ where:{id}, select: vacasSchemaLeer });
+            const elemento = await prisma.vaca.findFirstOrThrow({ where:{id}, select: vacasSchemaLeer });
             return elemento;
         } catch (err) {
             throw err;
@@ -34,7 +34,7 @@ export class VacaModel {
 
     static async editarElemento({ id, data }) {
         try {
-            const elemento = await prisma.vacas.update({
+            const elemento = await prisma.vaca.update({
                 where:{id},
                 data,
                 select: vacasSchemaLeer
