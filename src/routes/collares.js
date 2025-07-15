@@ -6,6 +6,7 @@ export const crearRouterCollares = ({ model }) => {
     const controller = new CollaresController({ model });
     
     routerCollares.get("/", controller.obtenerElementos);
+    routerCollares.get("/libres", controller.obtenerElementosLibres);
     
     routerCollares.post("/", controller.crearElemento);
     

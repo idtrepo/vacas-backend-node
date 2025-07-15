@@ -17,6 +17,7 @@ export const vacasSchemaLeer = {
     peso: true,
     collar: { select: { id: true, ns: true } },
     sucursal: { select: { id: true, nombre: true } },
+    cliente: { select: { id: true, nombre: true } },
 };
 
 export const vacasUbicacionSchemaLeer = {
@@ -28,7 +29,6 @@ export const vacasUbicacionSchemaLeer = {
             creado: 'desc' ,
         },
         where:{ estatus: true},
-        take: 1,
         select:{
             gateway:{
                 select:{
@@ -42,7 +42,10 @@ export const vacasUbicacionSchemaLeer = {
                         select:{
                             ns:true,
                             latitud:true,
-                            longitud:true
+                            longitud:true,
+                            temperaturaAmb:true,
+                            temperaturaCor:true,
+                            pasos:true,
                         }
                     }
                 }

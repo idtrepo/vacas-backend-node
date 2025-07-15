@@ -7,215 +7,212 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Perfil{
-  id Int @id @default(autoincrement())
-  nombre String @unique
-  estatus Boolean @default(true)
-  creado DateTime @default(now())
+model Perfil {
+  id      Int      @id @default(autoincrement())
+  nombre  String   @unique
+  estatus Boolean  @default(true)
+  creado  DateTime @default(now())
   editado DateTime @updatedAt
 
   usuarios Usuario[]
   acciones Permiso[]
 }
 
-model Usuario{
-  id Int @id @default(autoincrement())
-  correo String @unique
-  password String 
-  nombre String
+model Usuario {
+  id       Int      @id @default(autoincrement())
+  correo   String   @unique
+  password String
+  nombre   String
   apellido String
-  estatus Boolean @default(true)
-  creado DateTime @default(now())
-  editado DateTime @updatedAt
+  estatus  Boolean  @default(true)
+  creado   DateTime @default(now())
+  editado  DateTime @updatedAt
 
-  perfil Perfil @relation(fields: [idPerfil], references: [id]) 
-  idPerfil Int
-  cliente Cliente? @relation(fields: [idCliente], references: [id])
-  idCliente Int?
-  sucursal Sucursal? @relation(fields: [idSucursal], references: [id])
+  perfil     Perfil    @relation(fields: [idPerfil], references: [id])
+  idPerfil   Int
+  cliente    Cliente?  @relation(fields: [idCliente], references: [id])
+  idCliente  Int?
+  sucursal   Sucursal? @relation(fields: [idSucursal], references: [id])
   idSucursal Int?
 }
 
-model Operacion{
-  id Int @id @default(autoincrement())
-  nombre String @unique
-  estatus Boolean @default(true)
-  creado DateTime @default(now())
+model Operacion {
+  id      Int      @id @default(autoincrement())
+  nombre  String   @unique
+  estatus Boolean  @default(true)
+  creado  DateTime @default(now())
   editado DateTime @updatedAt
 
   acciones Accion[]
 }
 
-model Categoria{
-  id Int @id @default(autoincrement())
-  nombre String @unique
-  estatus Boolean @default(true)
-  creado DateTime @default(now())
+model Categoria {
+  id      Int      @id @default(autoincrement())
+  nombre  String   @unique
+  estatus Boolean  @default(true)
+  creado  DateTime @default(now())
   editado DateTime @updatedAt
 
   acciones Accion[]
 }
 
-model Accion{
-  id Int @id @default(autoincrement())
-  nombre String @unique
-  estatus Boolean @default(true)
-  creado DateTime @default(now())
+model Accion {
+  id      Int      @id @default(autoincrement())
+  nombre  String   @unique
+  estatus Boolean  @default(true)
+  creado  DateTime @default(now())
   editado DateTime @updatedAt
 
-  operacion Operacion @relation(fields: [idOperacion], references: [id])
+  operacion   Operacion @relation(fields: [idOperacion], references: [id])
   idOperacion Int
-  categoria Categoria @relation(fields: [idCategoria], references: [id])
+  categoria   Categoria @relation(fields: [idCategoria], references: [id])
   idCategoria Int
-  perfiles Permiso[]
+  perfiles    Permiso[]
 }
 
-model Permiso{
-  id Int @id @default(autoincrement())
-  estatus Boolean @default(true)
-  creado DateTime @default(now())
+model Permiso {
+  id      Int      @id @default(autoincrement())
+  estatus Boolean  @default(true)
+  creado  DateTime @default(now())
   editado DateTime @updatedAt
 
-  idPerfil Int 
-  perfil Perfil @relation(fields: [idPerfil], references: [id], onUpdate: Cascade)
+  idPerfil Int
+  perfil   Perfil @relation(fields: [idPerfil], references: [id], onUpdate: Cascade)
   idAccion Int
-  accion Accion @relation(fields: [idAccion], references: [id])
-  @@unique([idPerfil,idAccion])
+  accion   Accion @relation(fields: [idAccion], references: [id])
+
+  @@unique([idPerfil, idAccion])
 }
 
-model Cliente{
-  id Int @id @default(autoincrement())
-  nombre String @unique
-  estatus Boolean @default(true)
-  creado DateTime @default(now())
+model Cliente {
+  id      Int      @id @default(autoincrement())
+  nombre  String   @unique
+  estatus Boolean  @default(true)
+  creado  DateTime @default(now())
   editado DateTime @updatedAt
 
-  usuarios Usuario[]
+  usuarios   Usuario[]
   sucursales Sucursal[]
-  vacas Vaca[]
-  gateways Gateway[]
-  geoCercas GeoCerca[]
+  vacas      Vaca[]
+  gateways   Gateway[]
 }
 
-model Sucursal{
-  id Int @id @default(autoincrement())
-  nombre String
-  estatus Boolean @default(true)
-  creado DateTime @default(now())
+model Sucursal {
+  id      Int      @id @default(autoincrement())
+  nombre  String
+  estatus Boolean  @default(true)
+  creado  DateTime @default(now())
   editado DateTime @updatedAt
 
-  cliente Cliente @relation(fields: [idCliente], references: [id])
+  cliente   Cliente @relation(fields: [idCliente], references: [id])
   idCliente Int
 
-  usuarios Usuario[]
-  vacas    Vaca[]
-  gateways Gateway[]
+  usuarios  Usuario[]
+  vacas     Vaca[]
+  gateways  Gateway[]
   geoCercas GeoCerca[]
 }
 
-model Vaca{
-  id Int @id @default(autoincrement())
-  nombre String @unique
-  peso Float
+model Vaca {
+  id              Int      @id @default(autoincrement())
+  nombre          String   @unique
+  peso            Float
   fechaNacimiento DateTime
-  estatus Boolean @default(true)
-  creado DateTime @default(now())
-  editado DateTime @updatedAt
+  estatus         Boolean  @default(true)
+  creado          DateTime @default(now())
+  editado         DateTime @updatedAt
 
-  sucursal Sucursal @relation(fields: [idSucursal], references: [id])
+  sucursal   Sucursal @relation(fields: [idSucursal], references: [id])
   idSucursal Int
 
-  collar Collar @relation(fields: [idCollar], references: [id])
-  idCollar Int
+  collar   Collar? @relation( fields: [idCollar], references: [id])
+  idCollar Int?    
 
-  cliente Cliente @relation(fields: [idCliente], references: [id])
+  cliente   Cliente @relation(fields: [idCliente], references: [id])
   idCliente Int
 }
 
-model Collar{
-  id Int @id @default(autoincrement())
-  ns String @unique
-  estatus Boolean @default(true)
-  creado DateTime @default(now())
+model Collar {
+  id      Int      @id @default(autoincrement())
+  ns      String   @unique
+  estatus Boolean  @default(true)
+  creado  DateTime @default(now())
   editado DateTime @updatedAt
 
-  vacas Vaca[]
-  gateways GatewayCollar[]
+  vacas       Vaca[]
+  gateways   GatewayCollar[]
   infoStatus InfoStatus[]
 }
 
-model Gateway{
-  id Int @id @default(autoincrement())
-  ns String @unique
-  estatus Boolean @default(true)
-  creado DateTime @default(now())
+model Gateway {
+  id      Int      @id @default(autoincrement())
+  ns      String   @unique
+  estatus Boolean  @default(true)
+  creado  DateTime @default(now())
   editado DateTime @updatedAt
 
-  cliente Cliente @relation(fields: [idCliente], references: [id])
-  idCliente Int
-  sucursal Sucursal @relation(fields: [idSucursal], references: [id])
+  cliente    Cliente         @relation(fields: [idCliente], references: [id])
+  idCliente  Int
+  sucursal   Sucursal        @relation(fields: [idSucursal], references: [id])
   idSucursal Int
-  collares GatewayCollar[]
-  datos Dato[]
+  collares   GatewayCollar[]
+  datos      Dato[]
   infoStatus InfoStatus[]
 }
 
-model GatewayCollar{
-  id Int @id @default(autoincrement())
-  estatus Boolean @default(true)
-  creado DateTime @default(now())
+model GatewayCollar {
+  id      Int      @id @default(autoincrement())
+  estatus Boolean  @default(true)
+  creado  DateTime @default(now())
   editado DateTime @updatedAt
 
-  gateway Gateway @relation(fields: [idGateway], references: [id])
+  gateway   Gateway @relation(fields: [idGateway], references: [id])
   idGateway Int
 
-  collar Collar @relation(fields: [idCollar], references: [id])
+  collar   Collar @relation(fields: [idCollar], references: [id])
   idCollar Int
 }
 
-model Dato{
-    id Int @id @default(autoincrement())
-    ns String 
-    latitud Float
-    longitud Float
-    pasos Int
-    temperaturaAmb Float
-    temperaturaCor Float
-    estatus Boolean @default(true)
-    creado DateTime @default(now())
-    editado DateTime @updatedAt
-    
-    gateway Gateway @relation(fields: [idGateway], references: [id])
-    idGateway Int
+model Dato {
+  id             Int      @id @default(autoincrement())
+  ns             String
+  latitud        Float
+  longitud       Float
+  pasos          Int
+  temperaturaAmb Float
+  temperaturaCor Float
+  estatus        Boolean  @default(true)
+  creado         DateTime @default(now())
+  editado        DateTime @updatedAt
+
+  gateway   Gateway @relation(fields: [idGateway], references: [id])
+  idGateway Int
 }
 
-model InfoStatus{
-    id Int @id @default(autoincrement())
-    estatus Boolean @default(true)
-    creado DateTime @default(now())
-    editado DateTime @updatedAt
-    rssi Int
-    snr Int
-    bateria Int
-    
-    gateway Gateway @relation(fields: [idGateway], references: [id])
-    idGateway Int
-    
-    collar Collar @relation(fields: [idCollar], references: [id])
-    idCollar Int
-}
-
-model GeoCerca{
-  id Int @id @default(autoincrement())
-  estatus Boolean @default(true)
-  creado DateTime @default(now())
+model InfoStatus {
+  id      Int      @id @default(autoincrement())
+  estatus Boolean  @default(true)
+  creado  DateTime @default(now())
   editado DateTime @updatedAt
-  latitud Float
+  rssi    Int
+  snr     Int
+  bateria Int
+
+  gateway   Gateway @relation(fields: [idGateway], references: [id])
+  idGateway Int
+
+  collar   Collar @relation(fields: [idCollar], references: [id])
+  idCollar Int
+}
+
+model GeoCerca {
+  id       Int      @id @default(autoincrement())
+  estatus  Boolean  @default(true)
+  creado   DateTime @default(now())
+  editado  DateTime @updatedAt
+  latitud  Float
   longitud Float
 
-  cliente Cliente @relation(fields: [idCliente], references: [id])
-  idCliente Int
-
-  sucursal Sucursal @relation(fields: [idSucursal], references: [id])
+  sucursal   Sucursal @relation(fields: [idSucursal], references: [id])
   idSucursal Int
-  }
+}

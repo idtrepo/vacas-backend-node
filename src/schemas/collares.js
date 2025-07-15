@@ -8,7 +8,7 @@ const CollaresSchema = z.object({
 export const collaresSchemaLeer = {
     id: true,
     ns: true,
-    vacas: { select: { id: true, nombre: true } },
+    vaca: { select: { id: true, nombre: true } },
 };
 
 export const evaluarCollar = async (data) => {

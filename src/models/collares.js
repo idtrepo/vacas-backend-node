@@ -2,7 +2,25 @@ import { prisma } from '../../config/db.js'
 import { collaresSchemaLeer } from '../schemas/collares.js';
 
 export class CollarModel {
-    static async obtenerElementos({ skip, take, where }) {
+    static async obtenerElementosLibres({ skip, take }) {
+        try {
+            //obtener todos los collares que no esten asignados a una vaca
+            const where = {
+                vaca: {
+                    is: null
+                }
+            };
+            const numElementos = await prisma.collar.count({ where });
+            const elementos = await prisma.collar.findMany({
+                skip, take, where, orderBy: [{ creado: 'desc' }], select: collaresSchemaLeer
+            });
+            return { numElementos, elementos };
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    static async obtenerElementos({ skip, take, where}) {
         try {
             const numElementos = await prisma.collar.count({ where });
             const elementos = await prisma.collar.findMany({

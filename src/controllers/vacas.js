@@ -1,6 +1,7 @@
 import { evaluarVaca, evaluarVacaParcial } from "../schemas/vacas.js";
 import { VacasDTO } from "../dtos/vacas.js";
 import { MENSAJE_ERROR, MENSAJE_EXITO } from "../utils/mensajes.js";
+import { QueryDTO } from "../dtos/query.js";
 
 
 export class VacasController{
@@ -104,22 +105,21 @@ export class VacasController{
     obtenerUbicacion = async (req, res) =>{
         const { id } = req.params;
         try {
-            const vaca = await this.model.obtenerUbicacion({ id: parseInt(id) });
-            const nsCollar = vaca.collar.ns;
-
-            const datos = vaca.collar?.gateways[0].gateway.datos.filter(d => d.ns === nsCollar);
-            const dato = datos?.[0] || null;
-
+            const ubicaCionesData = await this.model.obtenerUbicacion(req);
+            //agrupamos la latitud y longitud en un array
+            const data = ubicaCionesData.map(ubicacion => {
+                return {
+                    ns:ubicacion.ns,
+                    coordenadas:[ ubicacion?.latitud, ubicacion?.longitud,],
+                    pasos:ubicacion?.pasos,
+                    temperaturaAmb:ubicacion?.temperaturaAmb,
+                    temperaturaCor:ubicacion?.temperaturaCor,
+                    fecha:ubicacion?.creado,
+                }
+            })
             res.json({
                 mensaje: MENSAJE_EXITO.LISTADO_UNO,
-                data:{
-                    id: vaca.id,
-                    nombre: vaca.nombre,
-                    peso: vaca.peso,
-                    idCollar: vaca.collar.id,
-                    idSucursal: vaca.sucursal.id,
-                    coordenadas:[ dato?.latitud, dato?.longitud,],
-                }
+                data
             });
         } catch (err) {
             res.status(404).json({ error: MENSAJE_ERROR.LISTADO_UNO });

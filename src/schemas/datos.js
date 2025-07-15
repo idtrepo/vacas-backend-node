@@ -14,12 +14,12 @@ const DatoSchema = z.object({
 export const datosSchemaLeer = {
     id: true,
     ns:true,
-    idGateway: true,
     latitud: true,
     longitud: true,
     pasos: true,
     temperaturaAmb: true,
-    temperaturaCor: true
+    temperaturaCor: true,
+    creado: true,
 };
 
 export const evaluarDato = async (data) => {

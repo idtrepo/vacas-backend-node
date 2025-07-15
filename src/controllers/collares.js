@@ -21,6 +21,20 @@ export class CollaresController {
     }
   };
 
+  obtenerElementosLibres = async (req, res) => {
+    try {
+      const { numElementos, elementos: collares } =
+        await this.model.obtenerElementosLibres(req);
+      res.json({
+        mensaje: MENSAJE_EXITO.LISTADO,
+        data: collares,
+        resultados: numElementos,
+      });
+    } catch (err) {
+      res.status(404).json({ error: MENSAJE_ERROR.LISTADO });
+    }
+  }
+
   crearElemento = async (req, res) => {
     const { error, data } = await evaluarCollar(req.body);
 

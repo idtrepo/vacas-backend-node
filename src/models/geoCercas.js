@@ -45,4 +45,26 @@ export class GeoCercaModel {
             throw err;
         }
     }
+
+    static async crearGeocercas(idSucursal, geocercas) {
+        try {
+            const data = geocercas.map((geo) => ({
+                idSucursal,
+                latitud: geo[0],
+                longitud: geo[1],
+            }));
+
+            await prisma.geoCerca.createMany({ data });
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    static async eliminarGeocercasPorSucursal(idSucursal) {
+        try {
+            await prisma.geoCerca.deleteMany({ where: { idSucursal:{ equals: idSucursal} } });
+        } catch (err) {
+            throw err;
+        }
+    }
 }

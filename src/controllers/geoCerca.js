@@ -11,9 +11,33 @@ export class GeoCercaController {
     try {
       const { numElementos, elementos: geoCercas } =
         await this.model.obtenerElementos(req);
+      if (geoCercas.length === 0) {
+        return res.status(404).json({ error: MENSAJE_ERROR.LISTADO });
+      }
+      //agrupamos por id de sucursal
+      const geoCercasAgrupadas = geoCercas.reduce((acc, geoCerca) => {
+        const { idSucursal } = geoCerca;
+        if (!acc[idSucursal]) {
+          acc[idSucursal] = {
+            idSucursal,
+            geoCercas: [],
+          };
+        }
+        acc[idSucursal].geoCercas.push([geoCerca.latitud, geoCerca.longitud]);
+        return acc;
+      }, {});
+
+      // Convertimos el objeto en un array y formateamos las coordenadas
+      const geoCercasAgrupadasArray = Object.values(geoCercasAgrupadas).map((item) => {
+        return {
+          idSucursal: item.idSucursal,
+          coordenadas: item.geoCercas,
+        };
+      });
+
       res.json({
         mensaje: MENSAJE_EXITO.LISTADO,
-        data: geoCercas,
+        data: geoCercasAgrupadasArray[0],
         resultados: numElementos,
       });
     } catch (err) {
@@ -45,31 +69,37 @@ export class GeoCercaController {
     const { id } = req.params;
 
     try {
+      //esto devuelve todas las geocercas de la sucursal
       const geoCerca = await this.model.obtenerElemento({ id: parseInt(id) });
-      res.json({ mensaje: MENSAJE_EXITO.LISTADO_UNO, data: geoCerca });
+      //formato el resultado para que devuelva un array de coordenadas
+      const geoCercaFormateada = geoCerca.map((geo) => {
+        return {
+          coordenadas: [geo.latitud, geo.longitud],
+        };
+      });
+      
+      res.json({ mensaje: MENSAJE_EXITO.LISTADO_UNO, data: geoCercaFormateada });
     } catch (err) {
       res.status(404).json({ error: MENSAJE_ERROR.LISTADO_UNO });
     }
   };
 
   editarElemento = async (req, res) => {
-    const { id } = req.params;
-    const { error, data } = await evaluarGeoCercaParcial(req.body);
-
-    if (error)
-      return res.status(400).json({ error: MENSAJE_ERROR.VALIDACION_DATOS });
+    const { id:idSucursal } = req.params;
+    const { coordenadas:geocercas } = req.body;
 
     try {
-      const geoCerca = await this.model.editarElemento({
-        id: parseInt(id),
-        data,
-      });
-      res.json({
-        mensaje: MENSAJE_EXITO.ACTUALIZACION,
-        data: geoCerca,
-      });
+      // Eliminar todas las geocercas asociadas a la sucursal
+      await this.model.eliminarGeocercasPorSucursal(parseInt(idSucursal));
+
+      // Crear las nuevas geocercas
+      if (geocercas.length > 2) {
+        await this.model.crearGeocercas(parseInt(idSucursal), geocercas);
+      }
+
+      res.json({ mensaje: MENSAJE_EXITO.ACTUALIZACION, data: geocercas });
     } catch (err) {
-      res.status(404).json({ error: MENSAJE_ERROR.ACTUALIZACION });
+      res.status(400).json({ error: MENSAJE_ERROR.ACTUALIZACION });
     }
   };
 }

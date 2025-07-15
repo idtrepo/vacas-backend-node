@@ -55,16 +55,15 @@ export class UsuariosController{
             if (error) return res.status(400).json({ error: MENSAJE_ERROR.VALIDACION_DATOS });
         
             let dataUsuario = data;
-        
             if (data?.password) {
                 dataUsuario = {
                     ...data,
-                    password: await hashearPassword({ pass: data.password })
+                    password: await hashearPassword({ password: data.password })
                 }
             }
         
             try {
-                const usuario = await this.model.editarElemento({ id: parseInt(id), data: dataUsuario })
+                const usuario = await this.model.editarElemento({ id: parseInt(id), data: UsuariosDTO.parse(dataUsuario) });
                 res.json({
                     mensaje: MENSAJE_EXITO.EDICION,
                     data: usuario

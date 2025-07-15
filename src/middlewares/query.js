@@ -10,6 +10,7 @@ export class QueryMiddleware {
   static execute(req, res, next) {
     const {
       estatus,
+      id,
       nombre,
       fecha,
       correo,
@@ -24,12 +25,13 @@ export class QueryMiddleware {
 
       collar,
       vaca,
-      gateway
+      gateway,
+      ns,
     } = QueryDTO.parse(req.query);
     const where = {};
 
     where["estatus"] = estatus;
-
+    if (id !== undefined) where["id"] = id && { equals: id };
     if (nombre !== undefined) where["nombre"] = nombre && { contains: nombre };
     if (correo !== undefined) where["correo"] = correo && { contains: correo };
     if (apellido !== undefined)
@@ -51,6 +53,7 @@ export class QueryMiddleware {
     if (vaca !== undefined) where["vaca"] = vaca && { id: { equals: vaca } };
     if (gateway !== undefined) 
       where["gateway"] = gateway && { id: { equals: gateway } };
+    if (ns !== undefined) where["ns"] = ns && { equals: ns };
     if (fecha) {
       const fechaInferior = new Date(fecha);
       const fechaSuperior = new Date(fecha);

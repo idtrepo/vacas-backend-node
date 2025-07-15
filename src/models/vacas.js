@@ -1,5 +1,6 @@
 import { prisma } from '../../config/db.js'
 import { vacasSchemaLeer, vacasUbicacionSchemaLeer } from '../schemas/vacas.js';
+import { datosSchemaLeer } from '../schemas/datos.js';
 
 export class VacaModel {
     static async obtenerElementos({ skip, take, where }) {
@@ -59,10 +60,14 @@ export class VacaModel {
         }
     }
 
-    static async obtenerUbicacion({ id }) {
+    static async obtenerUbicacion({ where }) {
         try {
-            const elemento = await prisma.vaca.findFirstOrThrow({ where:{id}, select: vacasUbicacionSchemaLeer });
-            return elemento;
+            const elementos = await prisma.dato.findMany({
+                where,
+                orderBy: [{ creado: 'desc' }],
+                select: datosSchemaLeer,
+            })
+            return elementos;
         } catch (err) {
             throw err;
         }
